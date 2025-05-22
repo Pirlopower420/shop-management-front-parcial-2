@@ -23,11 +23,10 @@ function getUsers(page){
             <table class="table">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Avatar</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">id</th>
+                    <th scope="col">username</th>
+                    <th scope="col">email</th>
+                    <th scope="col">password</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,9 +37,9 @@ function getUsers(page){
                 listUser = listUser.concat(`
                 <tr>
                     <td>${user.id}</td>
-                    <td>${user.first_name}</td>
-                    <td>${user.last_name}</td>
-                    <td><img src="${user.avatar}" alt="Avatar" class="avatar"></td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>${user.password}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="showInfoUser('${user.id}')">Info</button>
                     </td>
@@ -74,7 +73,7 @@ function getUsers(page){
 }
 
 function showInfoUser(userId){
-      fetch("https://reqres.in/api/users/"+userId, {
+      fetch("https://fakestoreapi.com/users"+userId, {
         method: "GET",
         headers: {
             "Content-type": "application/json",
@@ -113,11 +112,9 @@ function showModalUser(user){
       </div>
       <div class="modal-body">
         <div class="card">
-      <img src="${user.avatar}" class="card-img-top" alt="Avatar user">
      <div class="card-body">
          <h5 class="card-title">User info</h5>
-         <p class="card-text">First Name : ${user.firts_name}</p>
-         <p class="card-text">Last Name : ${user.last_name}</p>
+         <p class="card-text">User name : ${user.username}</p>
          <p class="card-text">Email : ${user.email}</p>
        
      </div>
