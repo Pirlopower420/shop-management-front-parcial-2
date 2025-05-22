@@ -1,60 +1,61 @@
-function getProducts(){
-    document.getElementById('info').innerHTML = '<h4>Lista de Productos</h4>'
-    document.getElementById('info').innerHTML = ''
+function getProducts() {
+    const infoDiv = document.getElementById('info');
+    infoDiv.innerHTML = '<h4 class="text-center">Lista de Productos</h4>';
+
     fetch("https://fakestoreapi.com/products", {
         method: "GET",
         headers: {
             "Content-type": "application/json",
-            'x-api-key': 'reqres-free-v1'
+            "x-api-key": "reqres-free-v1"
         }
     })
-    .then((result) =>{
-        return result.json().then(
-            data => {
-                return {
-                    status: result.status,
-                    body: data
-                }
-            }
-        )
-    })
-    .then((response) =>{
-        if(response.status === 200){
+    .then((result) => result.json().then(data => ({
+        status: result.status,
+        body: data
+    })))
+    .then((response) => {
+        if (response.status === 200) {
             let listProducts = `
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">title</th>
-                    <th scope="col">price</th>
-                    <th scope="col">description</th>
-                    <th scope="col">category</th>
-                    <th scope="col">image</th>
-                    </tr>
-                </thead>
-                <tbody>
-            `
-
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Título</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Imagen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
 
             response.body.forEach(product => {
-                listProducts = listProducts.concat(`
-                <tr>
-                    <td>${product.id}</td>
-                    <td>${product.title}</td>
-                    <td>${product.price}</td>
-                    <td>${product.description}</td>
-                    <td>${product.category}</td>
-                    
-                </tr>
-                    `)
+                listProducts += `
+                    <tr>
+                        <td>${product.id}</td>
+                        <td>${product.title}</td>
+                        <td>$${product.price}</td>
+                        <td>${product.description.substring(0, 100)}...</td>
+                        <td>${product.category}</td>
+                        <td><img src="${product.image}" alt="${product.title}" height="50"></td>
+                    </tr>
+                `;
             });
-            listProducts = listProducts.concat(`
-                <tbody>
-            </table>
-                `)
-                document.getElementById('info').innerHTML = listProducts
-        }else{
-            document.getElementById('info').innerHTML = '<h3>No se encontraron Productos</h3>'
+
+            listProducts += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            infoDiv.innerHTML += listProducts;
+        } else {
+            infoDiv.innerHTML = '<h3 class="text-danger">No se encontraron productos.</h3>';
         }
     })
+    .catch(error => {
+        infoDiv.innerHTML = `<p class="text-danger">Error al obtener los productos: ${error}</p>`;
+    });
 }

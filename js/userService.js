@@ -1,5 +1,5 @@
-function getUsers(page){
-    document.getElementById('cardHeader').innerHTML = '<h4>Listado de Usarios</h4>'
+function getUsers(){
+    document.getElementById('info').innerHTML = '<h4>Listado de Usarios</h4>'
     fetch("https://fakestoreapi.com/users", {
         method: "GET",
         headers: {
