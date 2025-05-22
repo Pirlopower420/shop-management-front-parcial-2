@@ -24,11 +24,12 @@ function getProducts(){
             <table class="table">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Year</th>
-                    <th scope="col">Color</th>
-                    <th scope="col">Pantone Value</th>
+                    <th scope="col">id</th>
+                    <th scope="col">title</th>
+                    <th scope="col">price</th>
+                    <th scope="col">description</th>
+                    <th scope="col">category</th>
+                    <th scope="col">image</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,10 +40,11 @@ function getProducts(){
                 listProducts = listProducts.concat(`
                 <tr>
                     <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${product.year}</td>
-                    <td style="background-color:${product.color}">${product.color}</td>
-                    <td>${product.pantone_value}</td>
+                    <td>${product.title}</td>
+                    <td>${product.price}</td>
+                    <td>${product.description}</td>
+                    <td>${product.category}</td>
+                    
                 </tr>
                     `)
             });
